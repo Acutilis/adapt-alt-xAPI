@@ -1,18 +1,18 @@
 {
-  "name": "adapt-alt-xapi",
-  "version": "0.0.1",
-  "framework": "^2.0.16",
-  "homepage": "https://github.com/Acutilis/adapt-alt-xAPI",
-  "issues": "https://github.com/Acutilis/adapt-alt-xAPI/issues",
-  "repository": "https://github.com/Acutilis/adapt-alt-xAPI",
-  "displayName" : "AltxAPI",
-  "extension" : "altxapi",
-  "description": "An extension that implements xAPI tracking.",
-  "main": "/js/adapt-alt-xapi.js",
-  "keywords": [
-    "adapt-plugin",
-    "adapt-extension"
-  ],
-  "license": "GPLv3",
-  "targetAttribute": "_altxapi"
+    "name": "adapt-alt-xapi",
+    "repository": "git://github.com/Acutilis/adapt-alt-xAPI",
+    "framework": "^2.0.16",
+    "version": "0.0.1",
+    "homepage": "https://github.com/Acutilis/adapt-alt-xAPI",
+    "issues": "https://github.com/Acutilis/adapt-alt-xAPI/issues",
+    "displayName": "AltxAPI",
+    "extension": "altxapi",
+    "description": "An extension that implements xAPI tracking.",
+    "main": "/js/adapt-alt-xapi.js",
+    "keywords": [
+        "adapt-plugin",
+        "adapt-extension"
+    ],
+    "license": "GPLv3",
+    "targetAttribute": "_altxapi"
 }

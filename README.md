@@ -26,7 +26,7 @@ Important: This extension requires version v2.0.16 of the Adapt Framework. It wi
 
 With the Adapt CLI installed, run the following from the command line:
 
-`adapt install adapt-alt-xAPI`
+`adapt install adapt-alt-xapi`
 
 To use it with the Authoring Tool, here in the github repository page click on 'Clone or download' and then click on the 'Download ZIP'. Upload that zip file to the Authoring Tool using the Plugin Manager. Within your course, click on 'Manage Extensions' and click on the green 'Add' button that appears to the right of adapt-alt-xAPI. Then open the 'Configuration Settings' for your course, and find the 'Extensions' section, click on the **AltxAPI** button and configure it.
 
