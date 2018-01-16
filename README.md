@@ -17,7 +17,7 @@ The adapt-alt-xAPI extension is compatible with the Authoring Tool. I have teste
 
 This extension is an evolution/rewrite of adapt-tkhub-xAPI (another xAPI extension that relied on adapt-trackingHub).
 
-This version is much simpler to use. It is a _stand-alone_extension and has less configuration settings to worry about.
+This version is much simpler to use. It is a _stand-alone_ extension and has less configuration settings to worry about.
 
 
 ## Installation
@@ -97,20 +97,20 @@ With this method, the xapi-launch server creates a proxy endpoint where the cour
 **NOTE**: The ADL launch server actually signs the statements before forwarding them to the LRS. When testing on version 1 of Learning Locker, the statements reached the LRS. Using version 2 of Learning Locker I have observed that Learning Locker rejects the statements because the signature does not pass the verification phase. However, the signed statements are accepted by the ADL LRS server (reference implementation available at [https://lrs.adlnet.gov/](https://lrs.adlnet.gov/). Testing with more LRSs is needed to determine where the error is (whether in the signing code of ADL launch server, or in LL v2 signature verification).
 
 
-## Hardcoded
+### Hardcoded
 This not a launch method that you would use in real life, it is only intended for testing and development.
 
 With this method, you specify the user identity, the LRS endpoint, and the LRS credentials directly in the configuration of the course. The launch sequence will just read these values from the config, and use them.
 
 As mentioned, this cannot be used in real life, because you can't embed the identity of the user in the content itself. But this is convenient during development/testing. It's an easy way to ensure that you have no other problems (network, dns, etc.) reaching your LRS.
 
-## Spoor
+### Spoor
 
 This is a non-standard mechanism that allows you to do xAPI tracking in an Adapt course that was deployed as a SCORM package. It is just a convenienece method that will allow you to experiment with xAPI if you can't (or don't want to) use the 'tincan' launch method or any other method.
 
-**IMPORTANT**: Please do not misinterpret the function of this launch method. It will NOT magically make your Adapt course report completions and all the things you do with SCORM. SCORM is SCORM, and xAPI is another thing. And this extension keeps them separate. This launch method will be useful to you if you want to experiment with xAPI, but your LMS does not have the capability of launching xAPI content. Since your LMS **is able** to handle SCORM packages, you can use this 'trick method' to use SCORM packages that just happen to send xAPI statements to an LRS. You still need a separate LRS, and you will need to embed the LRS info (endpoint and credentials) in the configuration file of the content, which is not ideal, but hey!, this is just a trick/convenience method.
+**IMPORTANT**: Please do not misinterpret the function of this launch method. It will NOT magically make your Adapt course report completions and transform SCORM behavior into xAPI behavior. SCORM is SCORM, and xAPI is another thing. And this extension keeps them separate. This launch method will be useful to you if you want to experiment with xAPI, but your LMS does not have the capability of launching xAPI content. Since your LMS **is able** to handle SCORM packages, you can use this 'trick method' to use SCORM packages that just happen to send xAPI statements to an LRS. You still need a separate LRS, and you will need to embed the LRS info (endpoint and credentials) in the configuration file of the content, which is not ideal, but hey!, this is just a trick/convenience method.
 
-If one thinks about xAPI in an LMS environment, the way to go is CMI5. For that, both the LMS and the content must conform to CMI5. Unfortunately, adapt-alt-xAPI does not implement CMI5 at this point. So, this this artificial `spoor` launch method allows SCOs to send statements to an LRS.
+If one thinks about xAPI in an LMS environment, the way to go is CMI5. To be able to use CMI5, both the LMS and the content must conform to the CMI5 specification. Unfortunately, adapt-alt-xAPI does not implement CMI5 at this point. So, this this artificial `spoor` launch method allows SCOs to send statements to an LRS.
 
 To use this, you would package your course for SCORM, using Spoor, as usual. The content is going to be uploaded to an LMS, and launched from the LMS. Once the Adapt course is launched, the `launch_spoor` function in `adapt-alt-xapi.js` will get the user id with this call:
 
@@ -163,7 +163,7 @@ This state representation is not particularly efficient, but it is very complete
 
 The code that builds the statements is placed in a separate file, `xapiMessageComposer.js`, for clarity.
 
-This code makes use of the [`xapiWrapper` library](https://github.com/adlnet/xAPIWrapper) provided by ADL. This library provides tons of lower level functionality that we are going to need anyway.
+This code makes use of the [xapiWrapper library](https://github.com/adlnet/xAPIWrapper) provided by ADL. This library provides tons of lower level functionality that we are going to need anyway.
 
 Please note that how each statement is constructed depends on the corresponding event. The _specific composing functions_ are named according to the event they _represent_, and depending on what event that is, the statement will include some contextual information, etc.
 
@@ -233,17 +233,16 @@ Also note that the URI for the type of the object is a made-up URI that identifi
 
 The statements that this extension sends are:
 
-    - when the Adapt course is started (verb: 'initialized', object: the course)
-    - when the Adapt course is unloaded (tab or window is closed, or user navigates away) (verb: 'terminated', object: the course)
-    - when the user goes to a menu page (verb: 'viewed', object: the menu page)
-    - when the user goes to a content page (verb 'viewed', object: the page title)
-    - when Adapt sets a component as _complete_ (verb 'completed', object: the component)
-    - when Adapt sets a page as _complete_ (verb 'completed', object: the page)
-    - when Adapt sets the course as _complete_ (verb 'completed', object: the course)
-    - when a question is completed (verb 'completed', object: the question component).
-    - when a question is answered (verb 'answered', object: the question component). Additional information is included in the `result` of the statement.
-    - when Adapt sets an assessment as complete (verb 'completed', object: the assessment). Additional information is included in the `result` of the statement.
-
+- when the Adapt course is started (verb: 'initialized', object: the course)
+- when the Adapt course is unloaded (tab or window is closed, or user navigates away) (verb: 'terminated', object: the course)
+- when the user goes to a menu page (verb: 'viewed', object: the menu page)
+- when the user goes to a content page (verb 'viewed', object: the page title)
+- when Adapt sets a component as _complete_ (verb 'completed', object: the component)
+- when Adapt sets a page as _complete_ (verb 'completed', object: the page)
+- when Adapt sets the course as _complete_ (verb 'completed', object: the course)
+- when a question is completed (verb 'completed', object: the question component).
+- when a question is answered (verb 'answered', object: the question component). Additional information is included in the `result` of the statement.
+- when Adapt sets an assessment as complete (verb 'completed', object: the assessment). Additional information is included in the `result` of the statement.
 
 
 All these defaults provide fairly detailed information about the user's journey through the adapt content. If any of these don't work for you, it's easy to fork this extension and modify it to fit your needs.
