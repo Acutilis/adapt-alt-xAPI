@@ -1,0 +1,26 @@
+// to be added to course/config.json
+
+{
+  "_altxapi": {
+        "_isEnabled": true,
+        "_courseID" : "This_is_NOT_valid_Use_a_real_URI",
+
+        "_localLoggingOnly": false,
+
+        "_identifyById": false,
+
+        "_launchMethod": "tincan",
+        "_saveLoadState": true,
+
+        "_ignoreEvents": [],
+
+
+        "_endPoint": "",
+        "_userName": "",
+        "_password": "",
+        "_mbox": "",
+        "_fullName": "",
+        "_homePage": ""
+    },
+}
+

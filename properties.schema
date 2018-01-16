@@ -1,0 +1,161 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://jsonschema.net",
+  "required":false,
+  "globals": {
+  },
+  "properties" : {
+    "pluginLocations" : {
+      "type" : "object",
+      "required" : true,
+      "properties" : {
+        "config" : {
+          "type" : "object",
+          "properties" : {
+            "_altxapi" : {
+              "type" : "object",
+              "required" : false,
+              "legend" : "Alt-xAPI",
+              "properties" : {
+                "_isEnabled" : {
+                  "type" : "boolean",
+                  "required" : true,
+                  "default" : true,
+                  "title" : "Is enabled",
+                  "inputType" : { "type" : "Boolean", "options" : [ true, false ] },
+                  "validators" : [ "required"],
+                  "help" : "If set to 'false', alt-xAPI will be disabled globally."
+                },
+                "_courseID" : {
+                  "type" : "string",
+                  "required" : true,
+                  "inputType" : "Text",
+                  "title" : "Course ID",
+                  "default" : "",
+                  "validators" : [ "required", "url" ],
+                  "help" : "The unique global ID for this course for tracking purposes. It MUST be an URI."
+                },
+                "_identifyById" : {
+                  "type" : "boolean",
+                  "required" : false,
+                  "inputType" : { "type" : "Boolean", "options" : [ false, true ] },
+                  "title" : "Use Id",
+                  "default" : false,
+                  "validators" : [ ],
+                  "help" : "Force to use the _id of the component to identify it in tracking. Should be false, in which case the title is use to identify the component."
+                },
+                "_localLoggingOnly" : {
+                  "type" : "boolean",
+                  "required" : false,
+                  "inputType" : { "type" : "Boolean", "options" : [ false, true ] },
+                  "title" : "Only log statements to console",
+                  "default" : false,
+                  "validators" : [ ],
+                  "help" : "Instead of sending the statements to the LRS, just log on the console."
+                },
+
+                "_saveLoadState" : {
+                  "type" : "boolean",
+                  "required" : false,
+                  "inputType" : { "type" : "Boolean", "options" : [ false, true ] },
+                  "title" : "Only log statements to console",
+                  "default" : false,
+                  "validators" : [ ],
+                  "help" : "If set to 'false', the state will not be saved to (or loaded from) the LRS. Useful for testing communication with the LRS without polluting the 'state' for the user."
+                },
+
+                "_ignoreEvents" : {
+                  "type" : "array",
+                  "required" : false,
+                  "title" : "Events to Ignore",
+                  "items" : {
+                    "title": "Event",
+                    "type": "string",
+                    "required": false,
+                    "default": "",
+                    "validators": [],
+                    "inputType": "Text"
+                  },
+                  "help": "Events that you want to ignore for xAPI tracking."
+                },
+
+                "_launchMethod" : {
+                   "title" : "Launch Method",
+                   "help" : "The launch method that the deployed course will use.",
+                   "type" : "string",
+                   "required" : false,
+                   "enum" : [ "harcoded", "adlxapi", "tincan", "spoor" ],
+                   "inputType" : {
+                     "type" : "Select",
+                     "options" : [ "hardcoded", "adlxapi", "tincan", "spoor" ] 
+                   },
+                   "default" : "tincan",
+                   "editorOnly" : true
+                 },
+
+                "_endPoint" : {
+                   "type" : "string",
+                   "inputType" : "Text",
+                   "title" : "LRS end point",
+                   "required" : false,
+                   "default" : "",
+                   "validators" : [ "url" ],
+                   "help" : "The LRS endpoint to which data is sent."
+                },
+                "_userName" : {
+                   "type" : "string",
+                   "title" : "Username",
+                   "required" : false,
+                   "default" : "",
+                   "inputType" : "Text",
+                   "validators" : [],
+                   "help" : "The username for the LRS. In some LRSs is called 'client key' or something similar."
+                },
+                "_password" : {
+                   "type" : "string",
+                   "inputType" : "Text",
+                   "title" : "Password",
+                   "default" : "",
+                   "required" : false,
+                    "validators" : [],
+                    "help" : "The password for the LRS. In some LRSs is called 'client password' or 'client secret'."
+                  },
+                "_mbox" : {
+                   "title" : "Mbox Identity",
+                   "help" : "Only needed if the launch method is 'hardcoded'. Used to identify the actor in the statements. The format is 'mailto:johndoe@example.com'",
+                   "type" : "string",
+                   "required" : false,
+                   "inputType" : "Text",
+                   "validators" : [ ],
+                   "default" : "mailto:johndoe@example.com",
+                   "editorOnly" : true
+                 },
+                "_fullName" : {
+                   "title" : "Hardcoded user name",
+                   "help" : "Only needed if the launch method is 'hardcoded'. Full name of the fake user.",
+                   "type" : "string",
+                   "required" : false,
+                   "inputType" : "Text",
+                   "validators" : [ ],
+                   "default" : "John Doe",
+                   "editorOnly" : true
+                },
+                "_homePage" : {
+                   "title" : "Home Page",
+                   "help" : "Only needed if the launch method is 'spoor'. This is the 'homepage' attribute of the xAPI 'account' object.",
+                   "type" : "string",
+                   "required" : false,
+                   "inputType" : "Text",
+                   "validators" : [ "url" ],
+                   "default" : "http://www.mylms.com",
+                   "editorOnly" : true
+                 }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
