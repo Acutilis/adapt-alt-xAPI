@@ -248,5 +248,29 @@ The statements that this extension sends are:
 All these defaults provide fairly detailed information about the user's journey through the adapt content. If any of these don't work for you, it's easy to fork this extension and modify it to fit your needs.
 
 
+## Packaging for LMS upload
 
+Since an Adapt course is really a static web site, it can be hosted on any web server. This is also true if the course is xAPI-enabled with adapt-alt-xapi, as long as an appropriate launch  mechanism is used (in this case, it could be the 'tincan' on the 'adlxapi' methods).
 
+However, an Adapt course with adapt-alt-xapi can be packaged to be uploaded to an LMS if the LMS can handle 'tincan packages'. For example, the [Moodle plugin mentioned earlier](https://github.com/garemoko/moodle-mod_tincanlaunch), adds the capability to handle tincan packages in Moodle. This way, you can upload a zip file with xAPI-enabled contents to Moodle, and it will host the content and launch them using the 'tincan' method.
+
+To package an Adapt course this way, you have to add a file named `tincan.xml` to the root of your `build` folder, then zip the contents of the `build` folder and upload it to Moodle (defining an activity of type 'tincan launch link'.
+
+The contents of your `tincan.xml` must be like this:
+
+```
+<?xml version="1.0" encoding="utf-8" ?>
+<tincan xmlns="http://projecttincan.com/tincan.xsd">
+    <activities>
+        <activity id="http://www.acme.com/courses/4f4f4f" type="http://adlnet.gov/expapi/activities/course">
+            <name>Course title</name>
+            <description lang="en-US">Course description</description>
+            <launch lang="en-US">index.html</launch>
+        </activity>
+    </activities>
+</tincan>
+```
+
+Please **be sure** to change the activity id, the name, and the description to fit your needs.
+
+For more information on 'tincan packaging' please [see this document](https://github.com/RusticiSoftware/launch/blob/master/lms_lrs.md).
