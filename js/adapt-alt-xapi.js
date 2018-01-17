@@ -44,7 +44,6 @@ define([
       Adapt.trigger('plugin:beginWait');
 
       this.listenToOnce(Adapt, 'configModel:dataLoaded', this.onConfigLoaded);
-      // I guess these two should be at the end of onConfigLoaded??
       this.listenToOnce(Adapt, 'app:dataLoaded', this.onDataLoaded);
       this.listenToOnce(Adapt, 'adapt:start', this.onStart);
     },
