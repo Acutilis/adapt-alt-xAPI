@@ -19,6 +19,7 @@ This extension is an evolution/rewrite of adapt-tkhub-xAPI (another xAPI extensi
 
 This version is much simpler to use. It is a _stand-alone_ extension and has less configuration settings to worry about.
 
+For more background information about why this new version was developed plese [see this blog post]( https://www.acutilis.com/blog/new-xapi-plugin-for-adapt/).
 
 ## Installation
 
