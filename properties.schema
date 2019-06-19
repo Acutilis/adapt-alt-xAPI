@@ -59,7 +59,7 @@
                   "type" : "boolean",
                   "required" : false,
                   "inputType" : { "type" : "Boolean", "options" : [ false, true ] },
-                  "title" : "Only log statements to console",
+                  "title" : "Save and load State from the LRS",
                   "default" : false,
                   "validators" : [ ],
                   "help" : "If set to 'false', the state will not be saved to (or loaded from) the LRS. Useful for testing communication with the LRS without polluting the 'state' for the user."
