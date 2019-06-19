@@ -35,39 +35,30 @@ define([ 'coreJS/adapt',
     },
 
 
-    getXAPIResponse: function(view) {
-      var type = view.getResponseType();
-      var response = view.getResponse();
+    getXAPIResponse: function(model) {
+      var type = model.getResponseType();
+      var response = model.getResponse();
 
       //, choice, fill-in, long-fill-in, matching, performance, sequencing, likert, numeric or other
       switch(type) {
-      case 'true-false':
-        if (!response || response === "false" || response === "0") {
-          return 'false';
-        }
-
-        return 'true';
-      case 'performance':
-      case 'sequencing':
-      case 'choice':
-        var selected = response.split(',');
-        return selected.join('[,]');
-      case 'fill-in':
-      case 'long-fill-in':
-        return response;
-      case 'matching':
-        var pairs = response.split('#');
-        response = pairs.join('[,]');
-        var parts = response.split('.');
-        return parts.join('[.]');
-      case 'ikert':
-      case 'numeric':
-        // TODO this really should handle ranges, which is not
-        // supported by SCORM (AFAIK)
-      case 'other':
-        return response;
-      default:
-        throw new Error('Inexpected response type: ' + type);
+        case 'true-false':
+          if (!response || response === "false" || response === "0") {
+            return 'false';
+          }
+  
+          return 'true';
+        case 'choice':
+          var selected = response.split(',');
+          return selected.join('[,]');
+        case 'matching':
+          var pairs = response.split('#');
+          response = pairs.join('[,]');
+          var parts = response.split('.');
+          return parts.join('[.]');
+  
+        default:
+          // fill-in, long-fill-in, likert, numeric, performance, sequencing, other
+          return response;
       }
 
       return response;
@@ -137,8 +128,8 @@ define([ 'coreJS/adapt',
       statement.object.definition = {type: this._ATB + t, name: { 'en-US': t }};
 
       var response = '';
-      if (typeof args.getResponse === 'function' && typeof args.getResponseType === 'function') {
-        response = this.getXAPIResponse(args);
+      if (typeof args.model.getResponse === 'function' && typeof args.model.getResponseType === 'function') {
+        response = this.getXAPIResponse(args.model);
       } else if (args.model.has('_userAnswer')) {
         response = args.model.get('_userAnswer');
       }
