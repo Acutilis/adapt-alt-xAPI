@@ -2,7 +2,7 @@
     "name": "adapt-alt-xapi",
     "repository": "git://github.com/Acutilis/adapt-alt-xAPI",
     "framework": ">=2.0.16",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "homepage": "https://github.com/Acutilis/adapt-alt-xAPI",
     "issues": "https://github.com/Acutilis/adapt-alt-xAPI/issues",
     "displayName": "AltxAPI",
